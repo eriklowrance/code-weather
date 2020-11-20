@@ -3,11 +3,11 @@ const searchButton = $("#search-btn");
 let cityHistory = JSON.parse(localStorage.getItem("savedCity"))
   ? JSON.parse(localStorage.getItem("savedCity"))
   : [];
-
+//function for saving searched cities to local storage
 function setHistory() {
   localStorage.setItem("savedCity", JSON.stringify(cityHistory));
   $("#localCity").empty();
-
+// for loop creating new li's with city name
   for (let i = 0; i < cityHistory.length; i++) {
     var li = $("<li>").attr("class", "list-group-item").text(cityHistory[i]);
     $("#localCity").append(li);
@@ -17,10 +17,13 @@ function setHistory() {
     buildQueryURL(cityName);
   })
 }
+//populating searched city history
 setHistory();
+//search button on click function
 searchButton.on("click", function (e) {
   e.preventDefault();
   var cityName = $("#search").val().trim();
+  //guard clause to protect from adding empty text to history
   if (cityName.length > 0 && cityHistory.indexOf(cityName)=== -1) {
     cityHistory.push(cityName);
   }
@@ -31,6 +34,7 @@ searchButton.on("click", function (e) {
   buildQueryURL(cityName);
  
 });
+//function for current forecast and api call
 function buildQueryURL(cityName) {
   var queryURL =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
@@ -41,6 +45,7 @@ function buildQueryURL(cityName) {
     url: queryURL,
     method: "GET",
   }).then(function (data) {
+    //getting and converting current date
     let currentDate = moment(data.dt, "X").format("( l )");
     let searchCity = $("<span>")
       .attr("class", "citySearch")
@@ -52,20 +57,21 @@ function buildQueryURL(cityName) {
           ".png'>"
       );
     console.log(data.name);
-
+        //getting and converting current temperature
     var tempF = (data.main.temp - 273.15) * 1.8 + 32;
     let temperature = $("<p>")
       .attr("class", "tempData")
       .text("Temperature (F): " + tempF.toFixed(2));
     console.log(tempF);
+    //getting current humidity
     let humidity = $("<p>")
       .attr("class", "humidity")
       .text("Humidity: " + data.main.humidity);
+      //getting current windspeed
     let windspeed = $("<p>")
       .attr("class", "windspeed")
       .text("Windspeed: " + data.wind.speed);
-    // console.log(tempF)
-
+        //second api call for uv index
     $.ajax({
       url:
         "http://api.openweathermap.org/data/2.5/uvi?lat=" +
@@ -76,13 +82,13 @@ function buildQueryURL(cityName) {
       method: "GET",
     }).then(function (uv) {
       $("#results-container").empty();
-
+      //getting curretn uv index
       console.log(uv);
       let uvIndex = $("<p>")
         .attr("class", "uvindex")
         .text("UV Index: " + uv.value);
       console.log(tempF);
-
+      //appending results to results container
       $("#results-container").append(
         searchCity,
         temperature,
@@ -90,6 +96,7 @@ function buildQueryURL(cityName) {
         windspeed,
         uvIndex
       );
+      //3rd api call for 5 day forecast
       $.ajax({
         url:
           "https://api.openweathermap.org/data/2.5/onecall?lat=" +
