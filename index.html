@@ -13,23 +13,40 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <form>
-      <div class="form-group">
-        <label for="cityInput">Search for a City:</label>
-        <input
-          class="form-control"
-          id="search"
-        />
-        <small id="emailHelp" class="form-text text-muted"
-          >Enter city here</small
-        >
+    <div class="row">
+      <div class="col-md-2">
+        <form>
+          <div class="form-group">
+            <label for="cityInput">Search for a City:</label>
+            <input class="form-control" id="search" />
+            <small id="emailHelp" class="form-text text-muted"
+              >Enter city here</small
+            >
+            <button id="search-btn" type="submit" class="btn btn-primary">
+              Search
+            </button>
+            <ul class="list-group" id = "localCity">
+              <!-- <li class="list-group-item">Cras justo odio</li>
+              <li class="list-group-item">Dapibus ac facilisis in</li>
+              <li class="list-group-item">Morbi leo risus</li>
+              <li class="list-group-item">Porta ac consectetur ac</li>
+              <li class="list-group-item">Vestibulum at eros</li> -->
+            </ul>
+          </div>
+        </form>
       </div>
-      <button id="search-btn" type="submit" class="btn btn-primary">
-        Search
-      </button>
-    </form>
-    <div id="results-container">
 
+      <div class="col-md-10">
+        <div id="results-container" class = "jumbotron"></div>
+        <h2>5-day forecast</h2>
+        <div class="forecast row">
+          <div class="col" id="day1"></div>
+          <div class="col" id="day2"></div>
+          <div class="col" id="day3"></div>
+          <div class="col" id="day4"></div>
+          <div class="col" id="day5"></div>
+        </div>
+      </div>
     </div>
     <script
       src="https://code.jquery.com/jquery-3.5.1.js"
@@ -41,7 +58,11 @@
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous"
+    ></script>
     <script src="script.js"></script>
   </body>
 </html>
