@@ -74,7 +74,7 @@ function buildQueryURL(cityName) {
         //second api call for uv index
     $.ajax({
       url:
-        "http://api.openweathermap.org/data/2.5/uvi?lat=" +
+        "https://api.openweathermap.org/data/2.5/uvi?lat=" +
         data.coord.lat +
         "&lon=" +
         data.coord.lon +
